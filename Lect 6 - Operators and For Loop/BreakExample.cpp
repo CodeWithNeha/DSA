@@ -1,18 +1,19 @@
 #include<iostream>
 using namespace std;
 int main(){
-    int n;
+    int n ;
     cin>>n;
     int i = 1;
     while(i<=n){
         int j = 1;
-        char p = 'A'+n-i;
-        while(j<=i){
-            cout<<p;
-            p = p+1;
+        while(j<=n){
+            cout<<j;
             j = j+1;
+            if(j>i){
+                break;
+            }
         }
+        i++;
         cout<<endl;
-        i = i+1;
     }
 }
