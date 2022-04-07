@@ -3,49 +3,32 @@ using namespace std;
 int main(){
     int n;
     cin>>n;
-    int a[n];
-    int i = 0;
-    while(i<n){
-        cin>>a[i];
-        i++;
+    int arr[n];
+    int i=0;
+    while(i<n)
+    {
+    cin>>arr[i];
+    i++;
     }
-    bool flag = false;
-    if(a[0]<a[1]){
-        int j =1;
-        while(j<n-1){
-            if(a[j]>a[j+1]){
-                while(j<n-1){
-                    if(a[j+1]<=a[j+2]){
-                        flag = true;
-                        cout<<"false";
-                        break;
-                    }
-                    j = j+1;
-                }
-            }
-            j = j+1;
-        }
-        if(!flag){
-            cout<<"true";
-        }
+    int comparearray[n-1];
+    for(int j=0;j<n-1;j++)
+    {
+     comparearray[j]=arr[j]-arr[j+1];   
     }
-    else if(a[0]>a[1]){
-        int j =1;
-        while(j<n-1){
-            if(a[j]<a[j+1]){
-                while(j<n-1){
-                    if(a[j+1]>=a[j+2]){
-                        flag = true;
-                        cout<<"false";
-                        break;
-                    }
-                    j = j+1;
-                }
-            }
-            j = j+1;
-        }
-        if(!flag){
-            cout<<"true";
-        }
+    int count=0;
+    for(int k=0;k<n-2;k++)
+    {
+       if((comparearray[k]>0 && comparearray[k+1]<0)||(comparearray[k]<0 && comparearray[k+1]>0))
+       {
+           count++;
+       }
+    }
+    if(count>=2)
+    {
+        cout<<"false";
+    }
+    else
+    {
+        cout<<"true";
     }
 }
