@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    int a[n];
+    int xr = 0;
+    for(int i = 0;i<n;i++){
+        cin>>a[i];
+        xr ^=a[i];
+    }
+    int dup = 0;
+    for(int i = 0;i<n-1;i++){
+        dup ^=i;
+    }
+    cout<<(xr^dup);
+}
