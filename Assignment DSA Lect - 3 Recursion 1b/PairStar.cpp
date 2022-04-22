@@ -18,7 +18,6 @@ void pair1(char input[],char pre,int i){
     else if(pre!=input[i]){
         pre = input[i];
     }
-    cout<<i<<pre<<endl;
     pair1(input,pre,i-1);
 }
 void pairStar(char input[]) {
