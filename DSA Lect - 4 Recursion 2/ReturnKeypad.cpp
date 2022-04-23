@@ -42,17 +42,6 @@ int keypad(int num, string output[]){
   }
   return smallSize*str.size();
 }
-// int subSequenc(string s,string output[]){
-//     if(s==""){
-//         output[0] = "";
-//         return 1;
-//     }
-//     int smallSize = subSequenc(s.substr(1),output);
-//     for(int i = 0;i<smallSize;i++){
-//         output[i+smallSize] = s[0]+output[i];
-//     }
-//     return 2*smallSize;
-// }
 int main(){
     int num;
     cin>>num;
