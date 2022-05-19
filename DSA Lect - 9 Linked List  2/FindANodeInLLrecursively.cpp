@@ -85,7 +85,7 @@ Node *reverseLL_Better(Node *head)
     if(head==NULL||head->next==NULL){
         return head;
     }
-    Node *newNode = reverseLL_Better(head->next);
+    Node *newNode = reverseLinkedListRec(head->next);
     Node *tail = head->next;
     tail->next = head;
     head->next = NULL;
@@ -98,6 +98,18 @@ void print(Node *head){
         temp= temp->next;
     }
     cout<<endl;
+}
+int findNode1(Node *head,int index,int n){
+    if(head==NULL){
+        return -1;
+    }
+    if(head->data==n){
+        return index;
+    }
+    return findNode1(head->next,index+1,n);
+}
+int findNode(Node *head,int n){
+    return findNode1(head,0,n);
 }
 int main(){
     // Statically
@@ -115,8 +127,9 @@ int main(){
     Node *head1;
     head1 = takeInput1();
     print(head1);
-    head1 = reverseLL_Better(head1);
-    print(head1);
+    // head1 = reverseLL_Better(head1);
+    // print(head1);
+    cout<<findNode(head1,0);
     // cout<<n1.data<<" "<<n2.data<<endl;
 
     // Dynamically

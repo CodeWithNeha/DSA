@@ -42,54 +42,14 @@ Node *takeInput1(){
     }
     return head;
 }
-class Pair{
-    public:
-    Node *head;
-    Node *tail;
-};
-Pair reverseLL(Node *head){
-    if(head==NULL||head->next==NULL){
-        Pair ans;
-        ans.head = head;
-        ans.tail = head;
-        return ans;
-    }
-    Pair smallAns = reverseLL(head->next);
-    smallAns.tail->next = head;
-    Pair ans;
-    head->next = NULL;
-    ans.head = smallAns.head;
-    ans.tail = head;
-    return ans;
-
-}
-Node *reverseLL_2(Node *head){
-    return reverseLL(head).head;
-}
-Node *reverseLinkedListRec(Node *head)
-{
-    if(head==NULL||head->next==NULL){
-        return head;
-    }
-    Node *newNode = reverseLinkedListRec(head->next);
-    Node *temp = newNode;
-    while(temp->next!=NULL){
+int length(Node *head){
+    Node *temp = head;
+    int count = 0;
+    while(temp!=NULL){
+        count++;
         temp = temp->next;
     }
-    temp->next = head;
-    head->next = NULL;
-    return newNode;
-}
-Node *reverseLL_Better(Node *head)
-{
-    if(head==NULL||head->next==NULL){
-        return head;
-    }
-    Node *newNode = reverseLL_Better(head->next);
-    Node *tail = head->next;
-    tail->next = head;
-    head->next = NULL;
-    return newNode;
+    return count;
 }
 void print(Node *head){
     Node *temp = head;
@@ -98,6 +58,32 @@ void print(Node *head){
         temp= temp->next;
     }
     cout<<endl;
+}
+
+Node *skipMdeleteN(Node *head, int M, int N)
+{
+    if(head==NULL){
+        return head;
+    }
+    int i = 0;
+	Node *temp = head;
+    while(temp!=NULL){
+        if(i<M){
+            int j = 0;
+            Node *tempTail = temp;
+            while(tempTail->next!=NULL&&j<N){
+                tempTail = tempTail->next;
+                j++;
+            }
+            temp->next = tempTail->next;
+            i=0;
+        }
+        else{
+            i++;
+        }
+        temp = temp->next;
+    }
+    return head;
 }
 int main(){
     // Statically
@@ -115,13 +101,6 @@ int main(){
     Node *head1;
     head1 = takeInput1();
     print(head1);
-    head1 = reverseLL_Better(head1);
+    head1 = skipMdeleteN(head1,2,2);
     print(head1);
-    // cout<<n1.data<<" "<<n2.data<<endl;
-
-    // Dynamically
-    // Node *n3 = new Node(10);
-    // Node *n4 = new Node(20);
-    // Node *head1 = n3; 
-    // n3->next = n4;
 }

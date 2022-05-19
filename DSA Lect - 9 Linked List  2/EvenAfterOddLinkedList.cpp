@@ -42,54 +42,14 @@ Node *takeInput1(){
     }
     return head;
 }
-class Pair{
-    public:
-    Node *head;
-    Node *tail;
-};
-Pair reverseLL(Node *head){
-    if(head==NULL||head->next==NULL){
-        Pair ans;
-        ans.head = head;
-        ans.tail = head;
-        return ans;
-    }
-    Pair smallAns = reverseLL(head->next);
-    smallAns.tail->next = head;
-    Pair ans;
-    head->next = NULL;
-    ans.head = smallAns.head;
-    ans.tail = head;
-    return ans;
-
-}
-Node *reverseLL_2(Node *head){
-    return reverseLL(head).head;
-}
-Node *reverseLinkedListRec(Node *head)
-{
-    if(head==NULL||head->next==NULL){
-        return head;
-    }
-    Node *newNode = reverseLinkedListRec(head->next);
-    Node *temp = newNode;
-    while(temp->next!=NULL){
+int length(Node *head){
+    Node *temp = head;
+    int count = 0;
+    while(temp!=NULL){
+        count++;
         temp = temp->next;
     }
-    temp->next = head;
-    head->next = NULL;
-    return newNode;
-}
-Node *reverseLL_Better(Node *head)
-{
-    if(head==NULL||head->next==NULL){
-        return head;
-    }
-    Node *newNode = reverseLL_Better(head->next);
-    Node *tail = head->next;
-    tail->next = head;
-    head->next = NULL;
-    return newNode;
+    return count;
 }
 void print(Node *head){
     Node *temp = head;
@@ -99,6 +59,57 @@ void print(Node *head){
     }
     cout<<endl;
 }
+Node *evenAfterOdd(Node *head)
+{
+	Node *temp = head;
+    Node *evenHead = NULL;
+    Node *evenTail = NULL;
+    Node *oddHead = NULL;
+    Node *oddTail = NULL;
+    int i = 0;
+    int count = length(head);
+    while(i<count){
+        if(temp->data%2==0){
+            if(evenHead==NULL&&evenTail==NULL){
+                evenHead = temp;
+                evenTail = temp;
+                temp = temp->next;
+            }
+            else{
+                evenTail->next = temp;
+                evenTail = evenTail->next;
+                temp = temp->next;
+            }
+        }
+        else{
+            if(oddHead==NULL&&oddTail==NULL){
+                  oddHead = temp;
+                oddTail = temp;
+                temp = temp->next; 
+            }
+            else{
+                oddTail->next = temp;
+                 oddTail = oddTail->next;
+                temp = temp->next;
+            }
+            }
+            i++;
+    }
+    if(evenHead==NULL){
+        oddTail->next = NULL;
+        return oddHead;
+    }
+    else if(oddHead==NULL){
+        evenTail->next = NULL;
+        return evenHead;
+    }
+    oddTail->next = evenHead;
+    evenTail->next = NULL;
+    return oddHead;
+}
+
+
+
 int main(){
     // Statically
     Node n1(1);
@@ -115,13 +126,6 @@ int main(){
     Node *head1;
     head1 = takeInput1();
     print(head1);
-    head1 = reverseLL_Better(head1);
+    head1 = evenAfterOdd(head1);
     print(head1);
-    // cout<<n1.data<<" "<<n2.data<<endl;
-
-    // Dynamically
-    // Node *n3 = new Node(10);
-    // Node *n4 = new Node(20);
-    // Node *head1 = n3; 
-    // n3->next = n4;
 }

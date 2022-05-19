@@ -42,55 +42,6 @@ Node *takeInput1(){
     }
     return head;
 }
-class Pair{
-    public:
-    Node *head;
-    Node *tail;
-};
-Pair reverseLL(Node *head){
-    if(head==NULL||head->next==NULL){
-        Pair ans;
-        ans.head = head;
-        ans.tail = head;
-        return ans;
-    }
-    Pair smallAns = reverseLL(head->next);
-    smallAns.tail->next = head;
-    Pair ans;
-    head->next = NULL;
-    ans.head = smallAns.head;
-    ans.tail = head;
-    return ans;
-
-}
-Node *reverseLL_2(Node *head){
-    return reverseLL(head).head;
-}
-Node *reverseLinkedListRec(Node *head)
-{
-    if(head==NULL||head->next==NULL){
-        return head;
-    }
-    Node *newNode = reverseLinkedListRec(head->next);
-    Node *temp = newNode;
-    while(temp->next!=NULL){
-        temp = temp->next;
-    }
-    temp->next = head;
-    head->next = NULL;
-    return newNode;
-}
-Node *reverseLL_Better(Node *head)
-{
-    if(head==NULL||head->next==NULL){
-        return head;
-    }
-    Node *newNode = reverseLL_Better(head->next);
-    Node *tail = head->next;
-    tail->next = head;
-    head->next = NULL;
-    return newNode;
-}
 void print(Node *head){
     Node *temp = head;
     while(temp!=NULL){
@@ -98,6 +49,31 @@ void print(Node *head){
         temp= temp->next;
     }
     cout<<endl;
+}
+Node *swapNodes(Node *head, int i, int j)
+{
+	int index = 0;
+    Node *data1 = NULL;
+    Node *data2 = NULL;
+    Node *temp = head; 
+    while(temp!=NULL){
+        if(index==i){
+            data1 = temp;
+        }
+        if(index==j){
+            data2 = temp;
+        }
+        temp = temp->next;
+        index++;
+    }
+    if(data1==NULL||data2==NULL){
+        return head;
+    }
+    cout<<data1->data<<"    "<<data2->data<<"   ";
+    int temp1 = data1->data;
+    data1->data = data2->data;
+    data2->data = temp1;
+    return head;
 }
 int main(){
     // Statically
@@ -115,13 +91,6 @@ int main(){
     Node *head1;
     head1 = takeInput1();
     print(head1);
-    head1 = reverseLL_Better(head1);
+    head1 =swapNodes(head1, 3, 4);
     print(head1);
-    // cout<<n1.data<<" "<<n2.data<<endl;
-
-    // Dynamically
-    // Node *n3 = new Node(10);
-    // Node *n4 = new Node(20);
-    // Node *head1 = n3; 
-    // n3->next = n4;
 }
