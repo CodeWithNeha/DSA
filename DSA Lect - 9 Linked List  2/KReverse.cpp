@@ -76,31 +76,8 @@ Node *kReverse(Node *head, int k)
     if(k==0||head==NULL){
         return head;
     }
-	Node *temp = head;
-    Node *newHead = NULL;
-    int i = 1;
-    int j = 0;
-    int len = length(head);
-    while(j<ceil(len/k)&&k>1){
-        while(temp!=NULL&&i<k){
-        temp = temp->next;
-        i++;
-    }
-    if(temp!=NULL){
-        newHead = temp->next;
-    }
-    temp->next = NULL;
-    head = reverseLL_Better(head);
-    temp = head;
-    while(temp->next!=NULL){
-        temp = temp->next;
-    }
-    temp->next = newHead;
-        temp = newHead;
-        print(head);
-        j++;
-    }
-    return head;
+	int count = 1;
+    while()
 }
 int main(){
     // Statically
