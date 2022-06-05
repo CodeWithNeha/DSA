@@ -28,7 +28,7 @@ class Queue{
     }
     void enqueue(T element){
         Node<T> *newNode = new Node<T>(element);
-        if(head==NULL&&tail==NULL){
+        if(head==NULL||tail==NULL){
             head = newNode;
             tail = newNode;
         }
