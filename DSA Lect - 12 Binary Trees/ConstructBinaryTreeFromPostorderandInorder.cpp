@@ -31,11 +31,11 @@ void printTree(BinaryTreeNode<int> * root){
         }
         int linS = inStart;
         int linE = inRoot-1;
-        int lpostS = postEnd-1;
-        int lpostE = linE-linS + lpostS;
+        int lpostS = postStart;
+        int lpostE = linE-linS+lpostS;
         int rpostS = lpostE+1;
-        int rpostE = postEnd;
-        int rinS = inRoot +1;
+        int rpostE = postEnd-1;
+        int rinS = inRoot+1;
         int rinE = inEnd;
         root->left = buildBinaryTree(postorder,lpostS,lpostE,inorder,linS,linE);
         root->right = buildBinaryTree(postorder,rpostS,rpostE,inorder,rinS,rinE);
