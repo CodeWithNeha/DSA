@@ -2,7 +2,6 @@
 #include"BinaryTreeNode.h"
 #include <queue>
 #include<cmath>
-#include<climits>
 using namespace std;
 void printTree(BinaryTreeNode<int> * root){
     if(root==NULL){
@@ -53,35 +52,22 @@ BinaryTreeNode<int> * takeInputLevelWise(){
    
     return root;
 }
-class IsBSTReturn{
-    public:
-    bool isBST;
-    int minimum;
-    int maximum;
-};
-IsBSTReturn isBST(BinaryTreeNode<int> *root) {
+int replace(BinaryTreeNode<int> *root,int sum){
     if(root==NULL){
-        IsBSTReturn output;
-        output.isBST = true;
-        output.minimum = INT_MAX;
-        output.maximum = INT_MIN;
-        return output;
+        return 0;
     }
-    IsBSTReturn leftOutput = isBST(root->left);
-    IsBSTReturn rightOutput = isBST(root->right);
-    int minimum = min(root->data,min(leftOutput.minimum,rightOutput.minimum));
-    int maximum = max(root->data,max(leftOutput.maximum,rightOutput.maximum));
-    bool isBSTFinal = (root->data>maximum)&&(root->data<=minimum)&&leftOutput.isBST&&rightOutput.isBST;
-    IsBSTReturn finalOutput;
-    finalOutput.isBST = isBSTFinal;
-    finalOutput.minimum = minimum;
-    finalOutput.maximum = maximum;
-    return finalOutput;
+    int right = replace(root->right,sum);
+    int rootData = root->data;
+    root->data = root->data+right+sum;
+    int left =replace(root->left,root->data);
+    return rootData+right+left;
 }
-
+void replaceWithLargerNodesSum(BinaryTreeNode<int> *root) {
+    int sum = replace(root,0);
+}
 int main(){
     BinaryTreeNode<int> * root = takeInputLevelWise();
     printTree(root);
-    cout<<isBST(root).isBST<<endl;
-    
+    replaceWithLargerNodesSum(root);
+    printTree(root);  
 }

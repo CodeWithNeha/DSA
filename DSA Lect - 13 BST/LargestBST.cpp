@@ -52,6 +52,26 @@ BinaryTreeNode<int> * takeInputLevelWise(){
    
     return root;
 }
+int minimum(BinaryTreeNode<int> *root){
+    if(root==NULL){
+        return INT_MAX;
+    }
+    return min(root->data, min(minimum(root->left),minimum(root->right)));
+}
+int maximum(BinaryTreeNode<int> *root){
+    if(root==NULL){
+        return INT_MIN;
+    }
+    return max(root->data, max(maximum(root->left),maximum(root->right)));
+}
+bool isBST(BinaryTreeNode<int> *root) {
+    if(root==NULL){
+        return true;
+    }
+    int leftMax = maximum(root->left);
+    int rightMin = minimum(root->right);
+    return (root->data>leftMax)&&(root->data<=rightMin)&&isBST(root->left)&&isBST(root->right);
+}
 int height(BinaryTreeNode<int>* root) {
     if(root==NULL){
         return 0;
@@ -67,10 +87,13 @@ int height(BinaryTreeNode<int>* root) {
 }
 
 int largestBSTSubtree(BinaryTreeNode<int> *root) {
-    if(root==NULL){
-        return 0;
+    if(isBST(root)){
+        return height(root);
     }
-    return max(height(root->left),height(root->right));
+    int leftAns = largestBSTSubtree(root->left);
+    int rightAns = largestBSTSubtree(root->right);
+    // cout<<leftAns<<"  "<<rightAns;
+    return max(leftAns,rightAns);
 }
 int main(){
     BinaryTreeNode<int> * root = takeInputLevelWise();

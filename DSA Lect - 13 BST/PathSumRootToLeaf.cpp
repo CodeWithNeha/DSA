@@ -2,7 +2,7 @@
 #include"BinaryTreeNode.h"
 #include <queue>
 #include<cmath>
-#include<climits>
+#include<cstring>
 using namespace std;
 void printTree(BinaryTreeNode<int> * root){
     if(root==NULL){
@@ -53,35 +53,22 @@ BinaryTreeNode<int> * takeInputLevelWise(){
    
     return root;
 }
-class IsBSTReturn{
-    public:
-    bool isBST;
-    int minimum;
-    int maximum;
-};
-IsBSTReturn isBST(BinaryTreeNode<int> *root) {
-    if(root==NULL){
-        IsBSTReturn output;
-        output.isBST = true;
-        output.minimum = INT_MAX;
-        output.maximum = INT_MIN;
-        return output;
+void rootToLeaf(BinaryTreeNode<int> *root,int k,string s){
+    if(root==NULL)
+        return;
+    if(k==root->data&&root->left==NULL&&root->right==NULL){
+        cout<<s+to_string(root->data)<<endl;
+        return;
     }
-    IsBSTReturn leftOutput = isBST(root->left);
-    IsBSTReturn rightOutput = isBST(root->right);
-    int minimum = min(root->data,min(leftOutput.minimum,rightOutput.minimum));
-    int maximum = max(root->data,max(leftOutput.maximum,rightOutput.maximum));
-    bool isBSTFinal = (root->data>maximum)&&(root->data<=minimum)&&leftOutput.isBST&&rightOutput.isBST;
-    IsBSTReturn finalOutput;
-    finalOutput.isBST = isBSTFinal;
-    finalOutput.minimum = minimum;
-    finalOutput.maximum = maximum;
-    return finalOutput;
+    
+    rootToLeaf(root->left,k-root->data,s+to_string(root->data)+" ");
+    rootToLeaf(root->right,k-root->data,s+to_string(root->data)+" ");
 }
-
+void rootToLeafPathsSumToK(BinaryTreeNode<int> *root, int k) {
+    rootToLeaf(root,k,"");
+}
 int main(){
     BinaryTreeNode<int> * root = takeInputLevelWise();
     printTree(root);
-    cout<<isBST(root).isBST<<endl;
-    
+   rootToLeafPathsSumToK(root,13);
 }
